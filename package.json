@@ -1,0 +1,27 @@
+{
+  "name": "react-native-android-location-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react-native",
+    "android",
+    "location",
+    "gps"
+  ],
+  "peerDependencies": {
+    "react-native": "^0.41.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/twinger/react-native-android-location-service.git"
+  },
+  "author": "TienDH",
+  "email": "twinger.co@gmail.com",
+  "url": "https://github.com/twinger",
+  "website": "twinger.co",
+  "license": "MIT"
+}
