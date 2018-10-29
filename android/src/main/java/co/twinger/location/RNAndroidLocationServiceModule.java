@@ -25,21 +25,21 @@ public class RNAndroidLocationServiceModule extends ReactContextBaseJavaModule i
     private final ReactApplicationContext reactContext;
     private Location mLocation;
 
-    private static final long MIN_TIME = 300;
-    private static final float MIN_DISTANCE = 100;
+    private static final long MIN_TIME = 10;
+    private static final float MIN_DISTANCE = 10;
     private static final String TAG = "AndroidLocationService";
 
     public RNAndroidLocationServiceModule(ReactApplicationContext reactContext) {
         super(reactContext);
         this.reactContext = reactContext;
 
-        if (ActivityCompat.checkSelfPermission(reactContext, android.Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(reactContext,
-                android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(reactContext,
+                android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(reactContext,
+                        android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             Log.d(TAG, "You should request permission before get location");
             return;
         }
-
 
         LocationManager locationManager = (LocationManager) reactContext.getSystemService(Context.LOCATION_SERVICE);
 
@@ -49,9 +49,12 @@ public class RNAndroidLocationServiceModule extends ReactContextBaseJavaModule i
 
             if (gpsEnabled) {
                 Log.d(TAG, "GPS Enable");
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME, MIN_DISTANCE, this, Looper.getMainLooper());
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME, MIN_DISTANCE, this,
+                        Looper.getMainLooper());
             }
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME, MIN_DISTANCE, this, Looper.getMainLooper()); //You can also use LocationManager.GPS_PROVIDER and LocationManager.PASSIVE_PROVIDER
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_TIME, MIN_DISTANCE, this,
+                    Looper.getMainLooper()); // You can also use LocationManager.GPS_PROVIDER and
+                                             // LocationManager.PASSIVE_PROVIDER
             mLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         }
     }
