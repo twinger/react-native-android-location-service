@@ -26,11 +26,68 @@
       compile project(':react-native-android-location-service')
   	```
 
+#### Add Permissions and used Google API to your Project
+
+Add this to your AndroidManifest file;
+
+``` xml
+// file: android/app/src/main/AndroidManifest.xml
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+	 <uses-feature android:name="android.hardware.location.gps" />
+
+```
+
 ## Usage
 ```javascript
-import RNAndroidLocationService from 'react-native-android-location-service';
+import React, { Component } from 'react';
+import { View, Text, DeviceEventEmitter, NativeModules } from 'react-native';
+import Permissions from 'react-native-permissions';
 
-// TODO: What to do with the module?
-RNAndroidLocationService;
+const { RNAndroidLocationService } = NativeModules;
+export default class extends Component {
+    state = {
+        lng: 0.0,
+        lat: 0.0,
+    }
+    componentDidMount() {
+        this.requestPermission();
+        if (!this.eventEmitter) {
+            // Register Listener Callback - has to be removed later
+            this.eventEmitter = DeviceEventEmitter.addListener('updateLocation', this.onLocationChange.bind(this));
+            // Initialize RNGLocation
+            RNAndroidLocationService.getLocation();
+        }
+    }
+    onLocationChange(e) {
+        this.setState({
+            lng: e.Longitude,
+            lat: e.Latitude
+        });
+    }
+
+    componentWillUnmount() {
+        // Stop listening for Events
+        this.eventEmitter.remove();
+    }
+    //request permission to access location
+    requestPermission = () => {
+        Permissions.request('location')
+            .then(response => {
+                //returns once the user has chosen to 'allow' or to 'not allow' access
+                //response is one of: 'authorized', 'denied', 'restricted', or 'undetermined'
+                this.setState({ locationPermission: response })
+            });
+    }
+    render() {
+        return (
+            <View>
+                <Text>Test location</Text>
+                <Text>Lng: {this.state.lng} Lat: {this.state.lat}</Text>
+            </View>
+
+        );
+    }
+}
 ```
   
