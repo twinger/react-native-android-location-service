@@ -48,7 +48,7 @@ import React, { Component } from 'react';
 import { View, Text, DeviceEventEmitter, NativeModules } from 'react-native';
 import Permissions from 'react-native-permissions';
 
-const { RNAndroidLocationService } = NativeModules;
+import RNAndroidLocationService from 'react-native-android-location-service';
 export default class extends Component {
     state = {
         lng: 0.0,
