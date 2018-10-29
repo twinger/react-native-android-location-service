@@ -1,5 +1,9 @@
 
 # react-native-android-location-service
+React Native Android Location using Location Manager 
+You should using with 'react-native-android-location-services-dialog-box' & 'react-native-android-settings-library' 
+for check all case of turn on/off location in Android device
+
 
 ## Getting started
 
