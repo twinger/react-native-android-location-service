@@ -38,7 +38,8 @@ Add this to your AndroidManifest file;
 // file: android/app/src/main/AndroidManifest.xml
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-	 <uses-feature android:name="android.hardware.location.gps" />
+<uses-feature android:name="android.hardware.location.gps" />
+<uses-feature android:name="android.hardware.location.network" />
 
 ```
 
